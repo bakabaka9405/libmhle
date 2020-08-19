@@ -1,12 +1,5 @@
 #include "solver.h"
 namespace mhle {
-	int gcd(const int& a, const int& b) {
-		return b ? gcd(b, a % b) : a;
-	}
-	int lcm(const int& a, const int& b) {
-		return a * b / gcd(a, b);
-	}
-
 
 	solver::solver(int num)
 		:m_equations(),

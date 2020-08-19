@@ -18,9 +18,18 @@
     <ClInclude Include="solver.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="fraction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="solver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="fraction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

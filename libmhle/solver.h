@@ -1,6 +1,7 @@
 #pragma once
 #include<vector>
 #include<stdexcept>
+#include"func.h"
 namespace mhle {
 	class solver {
 	public:

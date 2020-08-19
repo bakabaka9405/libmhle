@@ -139,9 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="fraction.h" />
+    <ClInclude Include="func.h" />
     <ClInclude Include="solver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="fraction.cpp" />
     <ClCompile Include="solver.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
