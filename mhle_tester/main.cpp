@@ -14,12 +14,28 @@ int main() {
 			cin >> a;
 			vec.push_back(a);
 		}
-		solver.add_equations(vec.begin(), vec.end());
+		try {
+			solver.add_equations(vec.begin(), vec.end());
+		}
+		catch (std::exception e) {
+			cout << "捕获异常：" << e.what() << endl;
+			cin.get();
+			return -1;
+		}
 	}
-	solver.solve(ans);
-	cout << "方程的解为：";
-	for (auto& i : ans)cout << i << " ";
-	cout << endl;
-	cin.get();
+
+	try {
+		solver.solve(ans);
+		cout << "方程的解为：";
+		for (auto& i : ans)cout << i << " ";
+		cout << endl;
+		cin.get();
+	}
+	catch(std::exception e){
+		cout <<"捕获异常："<< e.what() << endl;
+		cin.get();
+		return -1;
+	}
+	
 	return 0;
 }
