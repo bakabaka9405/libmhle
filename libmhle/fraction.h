@@ -10,7 +10,7 @@ namespace mhle {
 	public:
 		fraction();
 		fraction(const fraction& f);
-		explicit fraction(int integer,
+		fraction(int integer,
 						  int decimal = 1);
 		explicit fraction(const char* str);
 		explicit fraction(const std::string& str);
@@ -25,6 +25,7 @@ namespace mhle {
 
 		fraction& operator= (const fraction& f);
 		bool operator==(const fraction& f) const;
+		bool operator!=(const fraction& f)const;
 		const fraction operator+(const fraction& f)const;
 		const fraction operator-(const fraction& f)const;
 		const fraction operator*(const fraction& f)const;

@@ -7,7 +7,7 @@ namespace mhle {
 	{
 
 	}
-	void solver::add_equations(const std::initializer_list<int>& equation)
+	void solver::add_equations(const std::initializer_list<fraction>& equation)
 	{
 		if (equation.size() != m_num + 1) {
 			throw std::runtime_error("方程不完整");
@@ -19,16 +19,16 @@ namespace mhle {
 			throw std::runtime_error("谁TM写的全0方程");
 			return;
 		}
-		int tmp = *it; ++it;
+		fraction tmp = *it; ++it;
 		while (it != equation.end() && tmp != 1) {
-			if (*it)tmp = gcd(tmp, *it);
+			if (*it!=0)tmp = gcd(tmp, *it);
 			++it;
 		}
-		m_equations.push_back(std::vector<int>());
+		m_equations.push_back(std::vector<fraction>());
 		for (auto& i : equation)m_equations.back().push_back(i / tmp);
 	}
-	void solver::add_equations(std::vector<int>::const_iterator begin,
-							   std::vector<int>::const_iterator end)
+	void solver::add_equations(std::vector<fraction>::const_iterator begin,
+							   std::vector<fraction>::const_iterator end)
 	{
 		auto it = begin;
 		if (std::distance(it, end) != m_num + 1) {
@@ -40,18 +40,18 @@ namespace mhle {
 			throw std::runtime_error("谁TM写的全0方程");
 			return;
 		}
-		int tmp = *it; ++it;
+		auto tmp = *it; ++it;
 		while (it != end && tmp != 1) {
-			if (*it)tmp = gcd(tmp, *it);
+			if (*it!=0)tmp = gcd(tmp, *it);
 			++it;
 		}
-		m_equations.push_back(std::vector<int>());
+		m_equations.push_back(std::vector<fraction>());
 		while (begin != end) {
 			m_equations.back().push_back(*begin / tmp);
 			++begin;
 		}
 	}
-	void solver::solve(std::vector<int>& answer)
+	void solver::solve(std::vector<fraction>& answer)
 	{
 		if (m_equations.size() == 1) {
 			answer.push_back(m_equations[0][1] / m_equations[0][0]);
@@ -59,7 +59,7 @@ namespace mhle {
 		}
 
 		solver part_solver(m_num - 1);
-		std::vector<int> ans, vtmp;
+		std::vector<fraction> ans, vtmp;
 
 		auto it = m_equations.cbegin();
 		while (it != m_equations.cend() && it->front() == 0) {
@@ -70,11 +70,11 @@ namespace mhle {
 			throw std::runtime_error("方程组不合法");
 			return;
 		}
-		int tmp = it->front();
+		auto tmp = it->front();
 		auto it1 = it++;
 		while (it != m_equations.cend()) {
-			if (it->front()) {
-				int l = lcm(tmp, it->front()),
+			if (it->front()!=0) {
+				auto l = lcm(tmp, it->front()),
 					a = l / tmp, b = l / it->front();
 				vtmp.clear();
 				for (auto it2 = it1->cbegin() + 1, it3 = it->cbegin() + 1;
@@ -88,7 +88,7 @@ namespace mhle {
 		}
 		try {
 			part_solver.solve(ans);
-			int num = it1->back();
+			auto num = it1->back();
 			for (auto it2 = it1->cbegin()+1, it3 = ans.cbegin();
 				 it2 != it1->cend()-1; ++it2,++it3) {
 				num -= (*it2) * (*it3);

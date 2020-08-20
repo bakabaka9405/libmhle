@@ -30,14 +30,19 @@ namespace mhle {
 		bool flag = 0;
 		if (str[0] == '-')flag = 1, ++str;
 		int* pt = &m_integer;
-		while (*str != '\0') {
+		while (*str!='\0') {
 			if (*str == '/') {
-				if (flag)m_integer *= -1;
+				if (pt == &m_decimal) {
+					throw std::runtime_error("Invalid input");
+					return;
+				}
 				pt = &m_decimal;
+				m_decimal = 0;
 			}
 			else *pt = (*pt * 10) + (*str - 48);
 			++str;
 		}
+		if (flag)m_integer *= -1;
 		reduce();
 	}
 
@@ -78,6 +83,11 @@ namespace mhle {
 	{
 		return (m_integer == f.m_integer &&
 				m_decimal == f.m_decimal);
+	}
+
+	bool fraction::operator!=(const fraction& f) const
+	{
+		return !(*this == f);
 	}
 
 	const fraction fraction::operator+(const fraction& f)const
