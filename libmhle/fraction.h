@@ -10,9 +10,8 @@ namespace mhle {
 	public:
 		fraction();
 		fraction(const fraction& f);
-		explicit fraction(unsigned integer,
-						  unsigned decimal = 0,
-						  bool negative = 0);
+		explicit fraction(int integer,
+						  int decimal = 1);
 		explicit fraction(const char* str);
 		explicit fraction(const std::string& str);
 
@@ -20,9 +19,8 @@ namespace mhle {
 		const int to_int() const noexcept;
 		const double to_double() const noexcept;
 
-		unsigned integer()const { return m_integer; }
+		int integer()const { return m_integer; }
 		unsigned decimal()const { return m_decimal; }
-		bool negative()const { return m_negative; }
 
 
 		fraction& operator= (const fraction& f);
@@ -36,8 +34,8 @@ namespace mhle {
 		fraction& operator-=(const fraction& f);
 		fraction& operator*=(const fraction& f);
 		fraction& operator/=(const fraction& f);
-		std::istream& operator>>(std::istream& in);
-		std::ostream& operator<<(std::ostream& out)const;
+		friend std::istream& operator>>(std::istream& in,fraction& f);
+		friend std::ostream& operator<<(std::ostream& out,const fraction& f);
 		friend const fraction gcd(const fraction& f1,
 								  const fraction& f2);
 		friend const fraction lcm(const fraction& f1,
@@ -45,8 +43,7 @@ namespace mhle {
 		friend const fraction abs(fraction f);
 	protected:
 		void reduce();
-		unsigned m_integer, m_decimal;
-		bool m_negative;
+		int m_integer,m_decimal;
 	};
 
 
